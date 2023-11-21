@@ -52,7 +52,7 @@ download_url = 'https://github.com/tryton-ar/%s/tree/%s.%s' % (
 
 LINKS = {}
 
-requires = []
+requires = ['requests']
 for dep in info.get('depends', []):
     if not re.match(r'(ir|res)(\W|$)', dep):
         module_name = '%s_%s' % (MODULE2PREFIX.get(dep, 'trytond'), dep)
@@ -86,7 +86,7 @@ setup(name='%s_%s' % (PREFIX, MODULE),
         ),
     package_data={
         'trytond.modules.%s' % MODULE: (info.get('xml', []) + [
-            'tryton.cfg', 'view/*.xml', 'locale/*.po']),
+            'tryton.cfg', 'view/*.xml', 'locale/*.po', 'tests/*.rst']),
         },
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -101,16 +101,16 @@ setup(name='%s_%s' % (PREFIX, MODULE),
         'Natural Language :: Spanish',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
         'Programming Language :: Python :: Implementation :: CPython',
         'Topic :: Office/Business',
-        'Topic :: Office/Business :: Financial :: Accounting',
         ],
     license='GPL-3',
-    python_requires='>=3.7',
+    python_requires='>=3.8',
     install_requires=requires,
     extras_require={
         'test': tests_require,

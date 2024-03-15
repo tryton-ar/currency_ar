@@ -12,8 +12,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-URL_DOLARSI = 'https://www.dolarsi.com/api/api.php?type=dolar'
-TIMEOUT_DOLARSI = config.getfloat('currency_ar', 'requests_timeout', default=300)
+URL = 'https://dolarapi.com/v1/dolares/oficial'
+TIMEOUT = config.getfloat('currency_ar', 'requests_timeout', default=300)
 
 
 class Cron(metaclass=PoolMeta):
@@ -32,18 +32,14 @@ class Cron(metaclass=PoolMeta):
 
     def fetch_bna_ar(self, date):
         try:
-            response = requests.get(URL_DOLARSI, timeout=TIMEOUT_DOLARSI)
+            response = requests.get(URL, timeout=TIMEOUT)
         except requests.HTTPError as e:
             raise CronFetchError() from e
 
         data = response.json()
         logger.info('fetch_bna_ar response %s', data)
-        agencies = list(
-            filter(lambda x: x["casa"]["agencia"] == "47", data)
-            )
-        if agencies and len(agencies) == 1:
-            agency, = agencies
-            rate = agency['casa']['venta'].replace(',', '.')
+        if data and 'venta' in data:
+            rate = data['venta']
             logger.info('fetch_bna_ar rates %s', rate)
             return {
                 'USD': (Decimal('1.0') / Decimal(rate)),

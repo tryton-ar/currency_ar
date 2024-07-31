@@ -7,6 +7,7 @@ import io
 import os
 import re
 from configparser import ConfigParser
+
 from setuptools import find_packages, setup
 
 MODULE = 'currency_ar'

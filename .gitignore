@@ -44,7 +44,6 @@ nosetests.xml
 coverage.xml
 *,cover
 .hypothesis/
-TEST-*.xml
 
 # Translations
 *.mo
@@ -58,3 +57,12 @@ docs/_build/
 
 # PyBuilder
 target/
+
+#Ipython Notebook
+.ipynb_checkpoints
+
+.env
+.python-version
+TEST-*
+coverage.xml
+.mypy_cache

@@ -6,10 +6,8 @@ Imports::
 
     >>> import datetime as dt
     >>> import os
-
     >>> from proteus import Model
     >>> from trytond.tests.tools import activate_modules
-
     >>> today = dt.date.today()
     >>> previous_month = today - dt.timedelta(days=30)
     >>> before_previous_month = previous_month - dt.timedelta(days=1)
@@ -18,13 +16,9 @@ Activate modules::
 
     >>> config = activate_modules('currency_ar')
 
-Import models::
-
-    >>> Currency = Model.get('currency.currency')
-    >>> Cron = Model.get('currency.cron')
-
 Create some currencies::
 
+    >>> Currency = Model.get('currency.currency')
     >>> usd = Currency(name="USD", code='USD', symbol="U$")
     >>> usd.save()
     >>> ars = Currency(name="Peso Argentino", code='ARS', symbol="$")
@@ -32,6 +26,7 @@ Create some currencies::
 
 Setup cron::
 
+    >>> Cron = Model.get('currency.cron')
     >>> cron = Cron()
     >>> cron.source = 'bna_ar'
     >>> cron.frequency = 'daily'
